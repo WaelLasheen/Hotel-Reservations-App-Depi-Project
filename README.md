@@ -8,4 +8,4 @@ The **Hotel Reservations App** is a mobile application built to streamline hotel
 - Waleed Raafat Abdelhady  
 - Wael Tarek Lasheen  
 - Ali Mohammed Abotaleb
-- Mennah  
+- Minnah Mostafa
