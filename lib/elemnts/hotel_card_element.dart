@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
+import '../screens/booking/booking_form_screen_one.dart';
 
 class HotelCardElement extends StatelessWidget {
   final Map<String, dynamic> hotel;
   final VoidCallback onRemove;
   final double screenWidth;
   final double cardWidth;
+  final VoidCallback? onTap;
+
   const HotelCardElement({
     super.key,
     required this.hotel,
     required this.onRemove,
     required this.screenWidth,
     required this.cardWidth,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return GestureDetector(
-      onTap: () {
+      onTap: onTap ?? () {
         print('${hotel['name']} clicked!');
       },
       child: Container(
         width: cardWidth,
         decoration: BoxDecoration(
-          color: const Color(0xfff4f4f4),
+          color: theme.cardColor,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: theme.shadowColor.withOpacity(0.1),
               blurRadius: 5,
               spreadRadius: 2,
             ),
@@ -40,19 +46,29 @@ class HotelCardElement extends StatelessWidget {
               children: [
                 // Image Section
                 ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(15)),
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                   child: Image.network(
                     hotel['image'],
                     width: double.infinity,
-                    height: screenWidth * 0.25,
+                    height: screenWidth * 0.4,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: screenWidth * 0.4,
+                        color: theme.colorScheme.surfaceVariant,
+                        child: Icon(
+                          Icons.image,
+                          size: screenWidth * 0.1,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      );
+                    },
                   ),
                 ),
 
                 // Content Section
                 Padding(
-                  padding: EdgeInsets.all(screenWidth * 0.02),
+                  padding: EdgeInsets.all(screenWidth * 0.04),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -66,57 +82,66 @@ class HotelCardElement extends StatelessWidget {
                           Expanded(
                             child: Text(
                               hotel['name'],
-                              style: TextStyle(
+                              style: theme.textTheme.titleLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                fontSize: screenWidth * 0.035,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           // Rating
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: screenWidth * 0.035,
-                              ),
-                              SizedBox(width: screenWidth * 0.01),
-                              Text(
-                                '${hotel['rating']}',
-                                style: TextStyle(fontSize: screenWidth * 0.03),
-                              ),
-                            ],
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: theme.colorScheme.primary,
+                                  size: 16,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${hotel['rating']}',
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: screenWidth * 0.015),
+                      SizedBox(height: screenWidth * 0.02),
                       // Price
                       Text(
                         '${hotel['price']}',
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.035,
-                          color: const Color.fromARGB(255, 1, 169, 225),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: theme.colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: screenWidth * 0.015),
+                      SizedBox(height: screenWidth * 0.02),
                       // Location
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.location_on,
-                            color: const Color.fromARGB(255, 31, 146, 175),
-                            size: screenWidth * 0.04,
+                            color: theme.colorScheme.secondary,
+                            size: 16,
                           ),
-                          SizedBox(width: screenWidth * 0.01),
+                          const SizedBox(width: 4),
                           Expanded(
                             child: Text(
                               "${hotel['location']}",
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.032,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -124,28 +149,36 @@ class HotelCardElement extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: screenWidth * 0.005),
+                      SizedBox(height: screenWidth * 0.02),
                       // Book Now Button
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 2),
+                      SizedBox(
+                        width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            print('Book now clicked for ${hotel['name']}');
+                            // Extract price from the string (remove currency and /night)
+                            final priceStr = hotel['price'].toString().replaceAll(RegExp(r'[^\d.]'), '');
+                            final price = int.tryParse(priceStr) ?? 0;
+                            
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => BookingFormScreenOne(
+                                  costPerRoomPerDay: price,
+                                ),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff009fd4),
-                            minimumSize: const Size(double.infinity, 30),
+                            backgroundColor: theme.colorScheme.primary,
+                            foregroundColor: theme.colorScheme.onPrimary,
+                            minimumSize: const Size(double.infinity, 40),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            padding: EdgeInsets.zero,
                           ),
                           child: Text(
                             'Book Now',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: screenWidth * 0.032,
-                              fontWeight: FontWeight.w500,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: theme.colorScheme.onPrimary,
                             ),
                           ),
                         ),
@@ -162,15 +195,22 @@ class HotelCardElement extends StatelessWidget {
               child: GestureDetector(
                 onTap: onRemove,
                 child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.shadowColor.withOpacity(0.1),
+                        blurRadius: 4,
+                        spreadRadius: 1,
+                      ),
+                    ],
                   ),
                   child: Icon(
                     Icons.favorite,
-                    color: const Color.fromARGB(255, 1, 169, 225),
-                    size: screenWidth * 0.043,
+                    color: theme.colorScheme.primary,
+                    size: 20,
                   ),
                 ),
               ),

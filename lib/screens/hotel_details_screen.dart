@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/hotel.dart';
+import 'booking/booking_form_screen_one.dart';
 
 class HotelDetailsScreen extends StatelessWidget {
   final Hotel hotel;
@@ -197,7 +198,13 @@ class HotelDetailsScreen extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: Implement booking functionality
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BookingFormScreenOne(
+                        costPerRoomPerDay: hotel.price.toInt(),
+                      ),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,

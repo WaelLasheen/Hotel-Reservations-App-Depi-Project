@@ -1,49 +1,47 @@
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
+import '../models/favorite_hotel.dart';
 
 class FavoritesProvider extends ChangeNotifier {
-  final List<Map<String, dynamic>> _favorites = [
-    {
-      'id': '1',
-      'name': 'Luxury Hotel',
-      'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQjxd4Of0eve9hbihEVMk3Opp0YNEiNqhQGg&s',
-      'rating': 4.5,
-      'price': '\$95/night',
-      'location': 'Paris, France'
-    },
-    {
-      'id': '2',
-      'name': 'Imperial Hotel',
-      'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQjxd4Of0eve9hbihEVMk3Opp0YNEiNqhQGg&s',
-      'rating': 4.8,
-      'price': '\$120/night',
-      'location': 'Paris, France'
-    },
-    {
-      'id': '3',
-      'name': 'A Hotel',
-      'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQjxd4Of0eve9hbihEVMk3Opp0YNEiNqhQGg&s',
-      'rating': 4.8,
-      'price': '\$120/night',
-      'location': 'Paris, France'
-    },
-    {
-      'id': '4',
-      'name': 'A Hotel',
-      'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQjxd4Of0eve9hbihEVMk3Opp0YNEiNqhQGg&s',
-      'rating': 4.8,
-      'price': '\$120/night',
-      'location': 'Paris, France'
-    },
-  ];
+  static const String _boxName = 'favorites';
+  late Box<FavoriteHotel> _favoritesBox;
+  List<FavoriteHotel> _favorites = [];
 
-  List<Map<String, dynamic>> get favorites => _favorites;
+  FavoritesProvider() {
+    _initBox();
+  }
 
-  void removeFromFavorites(String hotelId) {
-    _favorites.removeWhere((hotel) => hotel['id'] == hotelId);
+  Future<void> _initBox() async {
+    _favoritesBox = await Hive.openBox<FavoriteHotel>(_boxName);
+    _favorites = _favoritesBox.values.toList();
     notifyListeners();
+  }
+
+  List<FavoriteHotel> get favorites => _favorites;
+
+  Future<void> addToFavorites(Map<String, dynamic> hotel) async {
+    if (!_favorites.any((h) => h.id == hotel['id'])) {
+      final favoriteHotel = FavoriteHotel(
+        id: hotel['id'],
+        name: hotel['name'],
+        image: hotel['image'],
+        rating: hotel['rating'] is double ? hotel['rating'] : double.parse(hotel['rating'].toString()),
+        price: hotel['price'],
+        location: hotel['location'],
+      );
+      await _favoritesBox.put(hotel['id'], favoriteHotel);
+      _favorites = _favoritesBox.values.toList();
+      notifyListeners();
+    }
+  }
+
+  Future<void> removeFromFavorites(String hotelId) async {
+    await _favoritesBox.delete(hotelId);
+    _favorites = _favoritesBox.values.toList();
+    notifyListeners();
+  }
+
+  bool isFavorite(String hotelId) {
+    return _favorites.any((hotel) => hotel.id == hotelId);
   }
 }

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'screens/hotel_listing_screen.dart';
 import 'blocs/hotel/hotel_bloc.dart';
 import 'services/sample_data.dart';
+import 'providers/booking/booking_provider.dart';
+import 'providers/booking/calender_provider.dart';
+import 'providers/favorites_provider.dart';
+import 'screens/main_screen.dart';
+import 'services/hive_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveService.init();
   runApp(const CozyGoApp());
 }
 
@@ -13,8 +21,21 @@ class CozyGoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HotelBloc(hotelService: SampleData()),
+    return MultiProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HotelBloc(hotelService: SampleData()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BookingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CalenderProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavoritesProvider(),
+        ),
+      ],
       child: MaterialApp(
         title: 'CozyGo',
         debugShowCheckedModeBanner: false,
@@ -69,7 +90,7 @@ class CozyGoApp extends StatelessWidget {
             elevation: 8,
           ),
         ),
-        home: const HotelListingScreen(),
+        home: const MainScreen(),
       ),
     );
   }

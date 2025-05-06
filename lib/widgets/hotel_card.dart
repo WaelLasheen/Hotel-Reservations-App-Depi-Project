@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/hotel.dart';
+import '../providers/favorites_provider.dart';
+import 'package:provider/provider.dart';
 
 class HotelCard extends StatelessWidget {
   final Hotel? hotel;
@@ -247,12 +249,34 @@ class HotelCard extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(
-          icon: const Icon(Icons.favorite_border),
-          onPressed: () {},
-          iconSize: 20,
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
+        Consumer<FavoritesProvider>(
+          builder: (context, favoritesProvider, child) {
+            final isFavorite = hotel != null && favoritesProvider.isFavorite(hotel!.id);
+            return IconButton(
+              icon: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? Theme.of(context).primaryColor : Colors.grey,
+              ),
+              onPressed: () {
+                if (hotel == null) return;
+                if (isFavorite) {
+                  favoritesProvider.removeFromFavorites(hotel!.id);
+                } else {
+                  favoritesProvider.addToFavorites({
+                    'id': hotel!.id,
+                    'name': hotel!.name,
+                    'image': hotel!.imageUrl,
+                    'rating': hotel!.rating,
+                    'price': 'EGP ${hotel!.price.toStringAsFixed(0)}/night',
+                    'location': hotel!.location,
+                  });
+                }
+              },
+              iconSize: 20,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+            );
+          },
         ),
       ],
     );
