@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/booking_form/controllers/booking_provider.dart';
+import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
 import 'package:flutter_application_1/booking_form/screens/booking_summary_screen.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_appbar.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_button.dart';

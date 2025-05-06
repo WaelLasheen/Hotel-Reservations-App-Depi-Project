@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/booking_form/controllers/booking_provider.dart';
-import 'package:flutter_application_1/booking_form/controllers/calender_provider.dart';
+import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
+import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/booking_form/screens/booking_form_screen_two.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/calender.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/check_card.dart';
