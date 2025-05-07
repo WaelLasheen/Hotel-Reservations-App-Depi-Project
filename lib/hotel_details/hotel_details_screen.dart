@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
-import '../core/models/hotel.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
+import 'package:flutter_application_1/core/provider/hotel_provider.dart';
+import 'package:provider/provider.dart';
 
 class HotelDetailsScreen extends StatelessWidget {
   final Hotel hotel;
@@ -19,7 +21,7 @@ class HotelDetailsScreen extends StatelessWidget {
       'https://cf.bstatic.com/xdata/images/hotel/max500/607574115.jpg?k=6f532852baf8694592420be945c254711e95974ea36111a379d4ef0ecd7f0867&o',
       'https://cf.bstatic.com/xdata/images/hotel/max500/29857346.jpg?k=a87128bed9b8c6f88e97aef3b92beaa31803686b07187b3450d3470988b83ef9&o',
     ];
-
+    final provider = Provider.of<HotelProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -48,7 +50,7 @@ class HotelDetailsScreen extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                        // Action
+                        Navigator.of(context).pop();
                       },
                     ),
                   ),
@@ -62,12 +64,17 @@ class HotelDetailsScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.favorite_border,
-                        color: Colors.grey[700],
-                      ),
+                      icon: hotel.isFavorite
+                          ? const Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.favorite_border,
+                              color: Color(0xFF616161),
+                            ),
                       onPressed: () {
-                        //  Action
+                        provider.toggleFavorite(hotel.id);
                       },
                     ),
                   ),

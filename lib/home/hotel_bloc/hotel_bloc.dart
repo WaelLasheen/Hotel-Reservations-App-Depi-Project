@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/home/services/sample_data.dart';
+import 'package:flutter_application_1/database/data/sample_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'hotel_state.dart';
 import 'hotel_event.dart';

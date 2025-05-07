@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
+import 'package:flutter_application_1/core/provider/hotel_provider.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
-import 'package:flutter_application_1/favorites/providers/favorites_provider.dart';
 import 'package:flutter_application_1/favorites/screen/widgets/hotel_card_element.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +16,9 @@ class FavoritesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorsManager.white,
       body: SafeArea(
-        child: Consumer<FavoritesProvider>(
+        child: Consumer<HotelProvider>(
           builder: (context, favoritesProvider, _) {
-            final favorites = favoritesProvider.favorites;
+            final List<Hotel> favorites = favoritesProvider.favorites;
 
             // Calculate exact card width
             final availableWidth = screenWidth -
@@ -53,8 +54,7 @@ class FavoritesScreen extends StatelessWidget {
                           hotel: hotel,
                           screenWidth: screenWidth,
                           cardWidth: cardWidth,
-                          onRemove: () => favoritesProvider
-                              .removeFromFavorites(hotel['id']),
+                          onRemove: () => favoritesProvider.toggleFavorite(hotel.id),
                         );
                       },
                     ),

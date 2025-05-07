@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
 import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
-import 'package:flutter_application_1/favorites/providers/favorites_provider.dart';
+import 'package:flutter_application_1/core/provider/hotel_provider.dart';
+import 'package:flutter_application_1/database/hotel_database_helper.dart';
 import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
 import 'package:flutter_application_1/home/hotel_bloc/hotel_bloc.dart';
 import 'package:flutter_application_1/home/screens/hotel_listing_screen.dart';
-import 'package:flutter_application_1/home/services/sample_data.dart';
+import 'package:flutter_application_1/database/data/sample_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final hotels = await HotelDatabase.getHotels();
+  if (hotels.isEmpty) {
+    SampleData().insertTestCase();
+  }
+  
   runApp(const MyApp());
 }
 
@@ -38,7 +45,7 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider(create: (_) => CalenderProvider()),
           ChangeNotifierProvider(create: (_) => BookingProvider()),
-          ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+          ChangeNotifierProvider(create: (_) => HotelProvider()..loadHotels()),
         ],
         child: MaterialApp(
           title: 'CozyGo',
@@ -94,7 +101,6 @@ class _MyAppState extends State<MyApp> {
               elevation: 8,
             ),
           ),
-
           home: Scaffold(
             body: _screens[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(

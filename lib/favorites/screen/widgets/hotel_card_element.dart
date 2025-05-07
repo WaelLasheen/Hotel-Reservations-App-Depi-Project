@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 
 class HotelCardElement extends StatelessWidget {
-  final Map<String, dynamic> hotel;
+  final Hotel hotel;
   final VoidCallback onRemove;
   final double screenWidth;
   final double cardWidth;
@@ -18,7 +20,7 @@ class HotelCardElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('${hotel['name']} clicked!');
+        print('${hotel.name} clicked!');
       },
       child: Container(
         width: cardWidth,
@@ -44,7 +46,7 @@ class HotelCardElement extends StatelessWidget {
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(15)),
                   child: Image.network(
-                    hotel['image'],
+                    hotel.imageUrl,
                     width: double.infinity,
                     height: screenWidth * 0.25,
                     fit: BoxFit.cover,
@@ -66,7 +68,7 @@ class HotelCardElement extends StatelessWidget {
                           // Hotel Name
                           Expanded(
                             child: Text(
-                              hotel['name'],
+                              hotel.name,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: screenWidth * 0.035,
@@ -85,7 +87,7 @@ class HotelCardElement extends StatelessWidget {
                               ),
                               SizedBox(width: screenWidth * 0.01),
                               Text(
-                                '${hotel['rating']}',
+                                '${hotel.rating}',
                                 style: TextStyle(fontSize: screenWidth * 0.03),
                               ),
                             ],
@@ -95,7 +97,7 @@ class HotelCardElement extends StatelessWidget {
                       SizedBox(height: screenWidth * 0.015),
                       // Price
                       Text(
-                        '${hotel['price']}',
+                        '${hotel.price}',
                         style: TextStyle(
                           fontSize: screenWidth * 0.035,
                           color: const Color.fromARGB(255, 1, 169, 225),
@@ -115,7 +117,7 @@ class HotelCardElement extends StatelessWidget {
                           SizedBox(width: screenWidth * 0.01),
                           Expanded(
                             child: Text(
-                              "${hotel['location']}",
+                              "$hotel.location",
                               style: TextStyle(
                                 fontSize: screenWidth * 0.032,
                               ),
@@ -131,7 +133,14 @@ class HotelCardElement extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 2),
                         child: ElevatedButton(
                           onPressed: () {
-                            print('Book now clicked for ${hotel['name']}');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BookingFormScreenOne(
+                                  costPerRoomPerDay: hotel.price.toInt(),
+                                ),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xff009fd4),
