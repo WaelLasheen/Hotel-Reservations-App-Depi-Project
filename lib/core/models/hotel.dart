@@ -6,8 +6,8 @@ class Hotel {
   final double price;
   final double rating;
   final int reviewCount;
-  final List<String> facilities;
   final String description;
+  bool isFavorite;
 
   Hotel({
     required this.id,
@@ -17,21 +17,7 @@ class Hotel {
     required this.price,
     required this.rating,
     required this.reviewCount,
-    required this.facilities,
     required this.description,
+    this.isFavorite = false,
   });
-
-  factory Hotel.fromJson(Map<String, dynamic> json) {
-    return Hotel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      location: json['location'] as String,
-      imageUrl: json['imageUrl'] as String,
-      price: (json['price'] as num).toDouble(),
-      rating: (json['rating'] as num).toDouble(),
-      reviewCount: json['reviewCount'] as int,
-      facilities: List<String>.from(json['facilities'] as List),
-      description: json['description'] as String,
-    );
-  }
-} 
+}

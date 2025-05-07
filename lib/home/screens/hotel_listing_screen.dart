@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
-import 'package:flutter_application_1/home/hotel/hotel_bloc.dart';
-import 'package:flutter_application_1/home/hotel/hotel_event.dart';
-import 'package:flutter_application_1/home/hotel/hotel_state.dart';
+import 'package:flutter_application_1/home/hotel_bloc/hotel_bloc.dart';
+import 'package:flutter_application_1/home/hotel_bloc/hotel_event.dart';
+import 'package:flutter_application_1/home/hotel_bloc/hotel_state.dart';
 import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/app_header.dart';

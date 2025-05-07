@@ -12,7 +12,6 @@ class SampleData {
         price: 2500,
         rating: 4.5,
         reviewCount: 128,
-        facilities: ['Wi-Fi', 'Pool', 'Spa', 'Restaurant'],
         description:
             'Luxury hotel in the heart of Cairo with stunning Nile views.',
       ),
@@ -24,7 +23,6 @@ class SampleData {
         price: 1800,
         rating: 4.7,
         reviewCount: 95,
-        facilities: ['Wi-Fi', 'Restaurant', 'Tour Desk'],
         description: 'Experience the magic of the pyramids from your room.',
       ),
       Hotel(
@@ -36,7 +34,6 @@ class SampleData {
         price: 2200,
         rating: 4.4,
         reviewCount: 156,
-        facilities: ['Wi-Fi', 'Beach Access', 'Pool', 'Gym'],
         description: 'Beachfront hotel with Mediterranean charm.',
       ),
       Hotel(
@@ -47,7 +44,6 @@ class SampleData {
         price: 1500,
         rating: 4.2,
         reviewCount: 89,
-        facilities: ['Wi-Fi', 'Pool', 'Restaurant'],
         description: 'Historic hotel near ancient temples.',
       ),
       Hotel(
@@ -59,7 +55,6 @@ class SampleData {
         price: 2800,
         rating: 4.6,
         reviewCount: 212,
-        facilities: ['Wi-Fi', 'Private Beach', 'Spa', 'Water Sports'],
         description: 'All-inclusive resort on the Red Sea.',
       ),
       Hotel(
@@ -70,7 +65,6 @@ class SampleData {
         price: 1200,
         rating: 4.1,
         reviewCount: 67,
-        facilities: ['Wi-Fi', 'Pool', 'Desert Tours'],
         description: 'Unique desert experience in traditional settings.',
       ),
       Hotel(
@@ -81,7 +75,6 @@ class SampleData {
         price: 1900,
         rating: 4.3,
         reviewCount: 143,
-        facilities: ['Wi-Fi', 'Pool', 'Restaurant', 'River Tours'],
         description: 'Spectacular views of the Nile River and Nubian culture.',
       ),
       Hotel(
@@ -93,13 +86,6 @@ class SampleData {
         price: 3200,
         rating: 4.7,
         reviewCount: 278,
-        facilities: [
-          'Wi-Fi',
-          'Private Beach',
-          'Spa',
-          'Diving Center',
-          'Multiple Restaurants'
-        ],
         description:
             'Luxury resort with world-class diving and beach activities.',
       ),
@@ -112,7 +98,6 @@ class SampleData {
         price: 1600,
         rating: 4.2,
         reviewCount: 92,
-        facilities: ['Wi-Fi', 'Beach Access', 'Restaurant', 'Snorkeling'],
         description: 'Peaceful getaway on the southern Red Sea coast.',
       ),
       Hotel(
@@ -124,7 +109,6 @@ class SampleData {
         price: 2100,
         rating: 4.4,
         reviewCount: 165,
-        facilities: ['Wi-Fi', 'Pool', 'Spa', 'Gym', 'City Tours'],
         description: 'Modern luxury in the heart of historic Cairo.',
       ),
     ];

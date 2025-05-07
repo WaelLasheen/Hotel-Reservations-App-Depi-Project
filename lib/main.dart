@@ -3,7 +3,7 @@ import 'package:flutter_application_1/booking_form/providers/booking_provider.da
 import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/favorites/providers/favorites_provider.dart';
 import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
-import 'package:flutter_application_1/home/hotel/hotel_bloc.dart';
+import 'package:flutter_application_1/home/hotel_bloc/hotel_bloc.dart';
 import 'package:flutter_application_1/home/screens/hotel_listing_screen.dart';
 import 'package:flutter_application_1/home/services/sample_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
