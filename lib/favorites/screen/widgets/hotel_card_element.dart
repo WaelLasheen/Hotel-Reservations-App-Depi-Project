@@ -3,6 +3,7 @@ import 'package:flutter_application_1/booking_form/screens/booking_form_screen_o
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HotelCardElement extends StatelessWidget {
   final Hotel hotel;
@@ -50,11 +51,23 @@ class HotelCardElement extends StatelessWidget {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(15)),
-                  child: Image.network(
-                    hotel.imageUrl,
+                  child: CachedNetworkImage(
+                    imageUrl: hotel.imageUrl,
                     width: double.infinity,
                     height: screenWidth * 0.25,
                     fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      width: double.infinity,
+                      height: screenWidth * 0.25,
+                      color: Colors.grey[200],
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      width: double.infinity,
+                      height: screenWidth * 0.25,
+                      color: Colors.grey[200],
+                      child: const Icon(Icons.image, size: 30),
+                    ),
                   ),
                 ),
 

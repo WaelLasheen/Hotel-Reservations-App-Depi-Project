@@ -7,6 +7,7 @@ import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/core/utils/text_styles_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class BookingSummaryScreen extends StatelessWidget {
   const BookingSummaryScreen({super.key});
@@ -40,11 +41,25 @@ class BookingSummaryScreen extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        'https://img.freepik.com/free-photo/room-interior-hotel-bedroom_23-2150683419.jpg?t=st=1745259268~exp=1745262868~hmac=2eafe526e38eedf78d670478b7358b1694347c7b043d9118a27d9b26db1e36ea&w=1380', // Placeholder for hotel image
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'https://img.freepik.com/free-photo/room-interior-hotel-bedroom_23-2150683419.jpg?t=st=1745259268~exp=1745262868~hmac=2eafe526e38eedf78d670478b7358b1694347c7b043d9118a27d9b26db1e36ea&w=1380',
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,
+                        placeholder: (context, url) => Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.grey[200],
+                          child:
+                              const Center(child: CircularProgressIndicator()),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.grey[200],
+                          child: const Icon(Icons.image, size: 30),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),

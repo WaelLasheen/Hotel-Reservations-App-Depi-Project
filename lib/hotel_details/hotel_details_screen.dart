@@ -3,6 +3,7 @@ import 'package:flutter_application_1/booking_form/screens/booking_form_screen_o
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HotelDetailsScreen extends StatelessWidget {
   final Hotel hotel;
@@ -34,7 +35,7 @@ class HotelDetailsScreen extends StatelessWidget {
                   height: 300.0,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(hotel.imageUrl),
+                      image: CachedNetworkImageProvider(hotel.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -190,11 +191,24 @@ class HotelDetailsScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 10.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
-                            child: Image.network(
-                              galleryImages[index],
+                            child: CachedNetworkImage(
+                              imageUrl: galleryImages[index],
                               width: 120.0,
                               height: 90.0,
                               fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                width: 120.0,
+                                height: 90.0,
+                                color: Colors.grey[200],
+                                child: const Center(
+                                    child: CircularProgressIndicator()),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                width: 120.0,
+                                height: 90.0,
+                                color: Colors.grey[200],
+                                child: const Icon(Icons.image, size: 30),
+                              ),
                             ),
                           ),
                         );

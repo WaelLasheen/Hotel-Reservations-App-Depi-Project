@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HotelCard extends StatelessWidget {
   final Hotel hotel;
@@ -50,18 +51,21 @@ class HotelCard extends StatelessWidget {
             ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(16)),
-              child: Image.network(
-                hotel.imageUrl,
+              child: CachedNetworkImage(
+                imageUrl: hotel.imageUrl,
                 height: 160,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 160,
-                    color: Colors.grey[200],
-                    child: const Icon(Icons.image, size: 50),
-                  );
-                },
+                placeholder: (context, url) => Container(
+                  height: 160,
+                  color: Colors.grey[200],
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  height: 160,
+                  color: Colors.grey[200],
+                  child: const Icon(Icons.image, size: 50),
+                ),
               ),
             ),
             _buildRatingBadge(hotel.rating),
@@ -98,19 +102,23 @@ class HotelCard extends StatelessWidget {
         ClipRRect(
           borderRadius:
               const BorderRadius.horizontal(left: Radius.circular(16)),
-          child: Image.network(
-            hotel.imageUrl,
+          child: CachedNetworkImage(
+            imageUrl: hotel.imageUrl,
             height: 120,
             width: 120,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                height: 120,
-                width: 120,
-                color: Colors.grey[200],
-                child: const Icon(Icons.image, size: 40),
-              );
-            },
+            placeholder: (context, url) => Container(
+              height: 120,
+              width: 120,
+              color: Colors.grey[200],
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+            errorWidget: (context, url, error) => Container(
+              height: 120,
+              width: 120,
+              color: Colors.grey[200],
+              child: const Icon(Icons.image, size: 40),
+            ),
           ),
         ),
         Expanded(

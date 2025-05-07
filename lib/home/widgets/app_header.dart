@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class AppHeader extends StatelessWidget {
   const AppHeader({super.key});
@@ -19,8 +20,9 @@ class AppHeader extends StatelessWidget {
             children: [
               const CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1633332755192-727a05c4013d'),
+                backgroundImage: CachedNetworkImageProvider(
+                  'https://images.unsplash.com/photo-1633332755192-727a05c4013d',
+                ),
               ),
               const SizedBox(width: 12),
               Column(
