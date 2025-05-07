@@ -31,10 +31,6 @@ class HotelDetailsScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 300.0,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0),
-                    ),
                     image: DecorationImage(
                       image: NetworkImage(hotel.imageUrl),
                       fit: BoxFit.cover,
