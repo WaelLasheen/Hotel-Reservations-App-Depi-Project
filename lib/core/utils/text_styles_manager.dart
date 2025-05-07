@@ -14,7 +14,7 @@ abstract class TextStyleManager {
   static const TextStyle whiteRegular16 = TextStyle(
       color: ColorsManager.white, fontWeight: FontWeight.w500, fontSize: 16);
   static const TextStyle taleRegular16 = TextStyle(
-      color: ColorsManager.teal, fontWeight: FontWeight.w500, fontSize: 16);
+      color: ColorsManager.blue700, fontWeight: FontWeight.w500, fontSize: 16);
 
   static const TextStyle greyRegular14 = TextStyle(
       color: ColorsManager.grey, fontWeight: FontWeight.w400, fontSize: 14);

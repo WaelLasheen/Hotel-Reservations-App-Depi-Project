@@ -56,7 +56,7 @@ class ImageUploadWidget extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.cloud_upload_outlined,
-                        color: ColorsManager.teal,
+                        color: ColorsManager.blue700,
                         size: 40,
                       ),
                       SizedBox(height: 8),

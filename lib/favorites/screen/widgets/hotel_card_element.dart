@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 
 class HotelCardElement extends StatelessWidget {
   final Map<String, dynamic> hotel;
@@ -22,7 +23,7 @@ class HotelCardElement extends StatelessWidget {
       child: Container(
         width: cardWidth,
         decoration: BoxDecoration(
-          color: const Color(0xfff4f4f4),
+          color: ColorsManager.white,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(

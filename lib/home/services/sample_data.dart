@@ -1,4 +1,4 @@
-import '../models/hotel.dart';
+import '../../core/models/hotel.dart';
 
 class SampleData {
   List<Hotel> getAllHotels() {

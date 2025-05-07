@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/favorites/providers/favorites_provider.dart';
 import 'package:flutter_application_1/favorites/screen/widgets/hotel_card_element.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +13,10 @@ class FavoritesScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xfff4f4f4),
+      backgroundColor: ColorsManager.white,
       body: SafeArea(
         child: Consumer<FavoritesProvider>(
-          builder: (context, favoritesProvider, child) {
+          builder: (context, favoritesProvider, _) {
             final favorites = favoritesProvider.favorites;
 
             // Calculate exact card width
@@ -41,7 +42,7 @@ class FavoritesScreen extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 0.72,
+                        childAspectRatio: 0.7,
                         crossAxisSpacing: 16,
                         mainAxisSpacing: 16,
                       ),

@@ -7,7 +7,7 @@ abstract class ColorsManager {
   static Color grey300 = Colors.grey.shade300;
   static Color grey100 = Colors.grey.shade100;
   static Color grey600 = Colors.grey.shade600;
-  static const Color teal = Color(0XFF238C98);
-  static const Color teal4 = Color(0x09238C98);
-  static const Color teal20 = Color(0x33238C98);
+  static const Color blue700 = Color(0xFF1976D2);
+  static const Color blue4 = Color(0x091976D2);
+  static const Color blue20 = Color(0x331976D2);
 }

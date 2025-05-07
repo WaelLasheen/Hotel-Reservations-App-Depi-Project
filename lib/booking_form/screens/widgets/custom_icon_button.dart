@@ -13,7 +13,7 @@ class CustomIconButton extends StatelessWidget {
       width: 40,
       height: 40,
       child: Material(
-        color: ColorsManager.teal20,
+        color: ColorsManager.blue20,
         borderRadius: BorderRadius.circular(8),
         child: InkWell(
           borderRadius: BorderRadius.circular(8),

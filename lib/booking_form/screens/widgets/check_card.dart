@@ -28,7 +28,7 @@ class CheckCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           width: MediaQuery.of(context).size.width * 0.35,
           decoration: BoxDecoration(
-            color: ColorsManager.teal4,
+            color: ColorsManager.blue4,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(

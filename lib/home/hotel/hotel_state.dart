@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/home/models/hotel.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
 
 abstract class HotelState extends Equatable {
   const HotelState();

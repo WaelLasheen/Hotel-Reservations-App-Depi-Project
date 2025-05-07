@@ -15,7 +15,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.label,
     required this.hint,
     this.keyboardType,
-    required this.onChange, required this.initialValue,
+    required this.onChange,
+    required this.initialValue,
   });
 
   @override
@@ -43,7 +44,7 @@ class CustomTextFormField extends StatelessWidget {
                 borderSide: BorderSide(color: ColorsManager.grey300),
               ),
               filled: true,
-              fillColor: ColorsManager.teal4,
+              fillColor: ColorsManager.blue4,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 12,

@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
-
-class Hotel {
-  final String name;
-  final int pricePerNight;
-  final double rating;
-  final int reviewCount;
-  final String description;
-  final String imageUrl;
-  final List<String> galleryImages;
-
-  Hotel({
-    required this.name,
-    required this.pricePerNight,
-    required this.rating,
-    required this.reviewCount,
-    required this.description,
-    required this.imageUrl,
-    required this.galleryImages,
-  });
-}
-
+import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
+import '../core/models/hotel.dart';
 
 class HotelDetailsScreen extends StatelessWidget {
   final Hotel hotel;
 
-  const HotelDetailsScreen({super.key, required this.hotel});
+  const HotelDetailsScreen({
+    super.key,
+    required this.hotel,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final List<String> galleryImages = [
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/607574071.jpg?k=b529f3b53ff7fe31fc34dcfb1d4e55da137487ef0c50d3464f1196fbb62a54b7&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max500/607574112.jpg?k=d7cd50e62593631a250899e6f35edeb091bccf53010a93674d9bbd0c03e345af&o',
+      'https://cf.bstatic.com/xdata/images/hotel/max500/77824581.jpg?k=c96e2be2aeca4c2f335c085c8cd4de60ab6c307bb295d14b32d88bbd4fddf396&o',
+      'https://cf.bstatic.com/xdata/images/hotel/max500/607574115.jpg?k=6f532852baf8694592420be945c254711e95974ea36111a379d4ef0ecd7f0867&o',
+      'https://cf.bstatic.com/xdata/images/hotel/max500/29857346.jpg?k=a87128bed9b8c6f88e97aef3b92beaa31803686b07187b3450d3470988b83ef9&o',
+    ];
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -103,7 +95,7 @@ class HotelDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '\$${hotel.pricePerNight} per Night',
+                        '\$${hotel.price} per Night',
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w600,
@@ -189,14 +181,14 @@ class HotelDetailsScreen extends StatelessWidget {
                     height: 90.0,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: hotel.galleryImages.length,
+                      itemCount: galleryImages.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 10.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: Image.network(
-                              hotel.galleryImages[index],
+                              galleryImages[index],
                               width: 120.0,
                               height: 90.0,
                               fit: BoxFit.cover,
@@ -239,7 +231,13 @@ class HotelDetailsScreen extends StatelessWidget {
                           height: 50.0,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Handle "Book Now" action
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => BookingFormScreenOne(
+                                    costPerRoomPerDay: hotel.price.toInt(),
+                                  ),
+                                ),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue[700],
@@ -266,32 +264,6 @@ class HotelDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-      /* bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.blue[700],
-        unselectedItemColor: Colors.grey[600],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-      ),*/
     );
   }
 }
