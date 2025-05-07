@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/home/hotel/hotel_bloc.dart';
 import 'package:flutter_application_1/home/hotel/hotel_event.dart';
 import 'package:flutter_application_1/home/hotel/hotel_state.dart';
+import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/models/hotel.dart';
 import '../widgets/app_header.dart';
 import '../widgets/hotel_section.dart';
 import 'all_hotels_screen.dart';
-import '../../hotel_details/hotel_details_screen.dart';
 
 class HotelListingScreen extends StatelessWidget {
   const HotelListingScreen({super.key});
@@ -67,7 +67,7 @@ class HotelListingScreen extends StatelessWidget {
                             'Popular Hotels',
                             state.popularHotels,
                           ),
-                          onHotelTap: (hotel) =>
+                          onHotelTap: (Hotel hotel) =>
                               _navigateToHotelDetails(context, hotel),
                           isHorizontal: false,
                         ),
@@ -80,7 +80,7 @@ class HotelListingScreen extends StatelessWidget {
                             'Special Offers',
                             state.specialOffers,
                           ),
-                          onHotelTap: (hotel) =>
+                          onHotelTap: (Hotel hotel) =>
                               _navigateToHotelDetails(context, hotel),
                           isHorizontal: true,
                         ),

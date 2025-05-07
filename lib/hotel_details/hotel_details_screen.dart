@@ -89,15 +89,15 @@ class HotelDetailsScreen extends StatelessWidget {
                       Text(
                         hotel.name,
                         style: TextStyle(
-                          fontSize: 22.0,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800],
                         ),
                       ),
                       Text(
-                        '\$${hotel.price} per Night',
+                        '\$${hotel.price.toInt()} per Night',
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.green[600],
                         ),
