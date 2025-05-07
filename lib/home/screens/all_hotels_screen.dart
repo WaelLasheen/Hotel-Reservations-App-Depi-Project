@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/models/hotel.dart';
+import 'package:flutter_application_1/core/provider/hotel_provider.dart';
 import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
+import 'package:provider/provider.dart';
 import '../widgets/hotel_card.dart';
 
 class AllHotelsScreen extends StatelessWidget {
   final String title;
-  final List<Hotel> hotels;
 
   const AllHotelsScreen({
     super.key,
     required this.title,
-    required this.hotels,
   });
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<HotelProvider>(context);
+    final hotels = provider.hotels;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),

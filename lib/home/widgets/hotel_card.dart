@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
+import 'package:flutter_application_1/core/provider/hotel_provider.dart';
+import 'package:provider/provider.dart';
 
 class HotelCard extends StatelessWidget {
-  final Hotel? hotel;
+  final Hotel hotel;
   final bool isHorizontal;
 
   const HotelCard({
@@ -13,13 +15,6 @@ class HotelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = hotel?.name ?? 'Elysium Gardens';
-    final location = hotel?.location ?? 'Cairo, Egypt';
-    final price = hotel?.price ?? 1500;
-    final rating = hotel?.rating ?? 4.5;
-    final imageUrl = hotel?.imageUrl ??
-        'https://images.unsplash.com/photo-1566073771259-6a8506099945';
-
     return Container(
       width: isHorizontal ? double.infinity : 220,
       decoration: BoxDecoration(
@@ -37,30 +32,15 @@ class HotelCard extends StatelessWidget {
       child: isHorizontal
           ? _buildHorizontalCard(
               context,
-              name,
-              location,
-              price,
-              rating,
-              imageUrl,
+              hotel,
             )
-          : _buildVerticalCard(
-              context,
-              name,
-              location,
-              price,
-              rating,
-              imageUrl,
-            ),
+          : _buildVerticalCard(context, hotel),
     );
   }
 
   Widget _buildVerticalCard(
     BuildContext context,
-    String name,
-    String location,
-    double price,
-    double rating,
-    String imageUrl,
+    Hotel hotel,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +51,7 @@ class HotelCard extends StatelessWidget {
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(16)),
               child: Image.network(
-                imageUrl,
+                hotel.imageUrl,
                 height: 160,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -84,7 +64,7 @@ class HotelCard extends StatelessWidget {
                 },
               ),
             ),
-            _buildRatingBadge(rating),
+            _buildRatingBadge(hotel.rating),
           ],
         ),
         Padding(
@@ -93,7 +73,7 @@ class HotelCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                hotel.name,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -102,9 +82,9 @@ class HotelCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
-              _buildLocation(location),
+              _buildLocation(hotel.location),
               const SizedBox(height: 8),
-              _buildPriceRow(context, price),
+              _buildPriceRow(context, hotel),
             ],
           ),
         ),
@@ -112,21 +92,14 @@ class HotelCard extends StatelessWidget {
     );
   }
 
-  Widget _buildHorizontalCard(
-    BuildContext context,
-    String name,
-    String location,
-    double price,
-    double rating,
-    String imageUrl,
-  ) {
+  Widget _buildHorizontalCard(BuildContext context, Hotel hotel) {
     return Row(
       children: [
         ClipRRect(
           borderRadius:
               const BorderRadius.horizontal(left: Radius.circular(16)),
           child: Image.network(
-            imageUrl,
+            hotel.imageUrl,
             height: 120,
             width: 120,
             fit: BoxFit.cover,
@@ -151,7 +124,7 @@ class HotelCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        name,
+                        hotel.name,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -160,13 +133,13 @@ class HotelCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    _buildRatingBadge(rating),
+                    _buildRatingBadge(hotel.rating),
                   ],
                 ),
                 const SizedBox(height: 4),
-                _buildLocation(location),
+                _buildLocation(hotel.location),
                 const SizedBox(height: 8),
-                _buildPriceRow(context, price),
+                _buildPriceRow(context, hotel),
               ],
             ),
           ),
@@ -224,7 +197,9 @@ class HotelCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPriceRow(BuildContext context, double price) {
+  Widget _buildPriceRow(BuildContext context, Hotel hotel) {
+    final provider = Provider.of<HotelProvider>(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -234,7 +209,7 @@ class HotelCard extends StatelessWidget {
               style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
-                  text: 'EGP ${price.toStringAsFixed(0)}',
+                  text: 'EGP ${hotel.price.toInt()}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -253,8 +228,15 @@ class HotelCard extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.favorite_border),
-          onPressed: () {},
+          icon: hotel.isFavorite
+              ? const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                )
+              : const Icon(Icons.favorite_border),
+          onPressed: () {
+            provider.toggleFavorite(hotel.id);
+          },
           iconSize: 20,
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),

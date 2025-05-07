@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
+import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
 
 class HotelCardElement extends StatelessWidget {
   final Hotel hotel;
@@ -20,7 +21,11 @@ class HotelCardElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('${hotel.name} clicked!');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => HotelDetailsScreen(hotel: hotel),
+          ),
+        );
       },
       child: Container(
         width: cardWidth,
@@ -97,7 +102,7 @@ class HotelCardElement extends StatelessWidget {
                       SizedBox(height: screenWidth * 0.015),
                       // Price
                       Text(
-                        '${hotel.price}',
+                        '${hotel.price.toInt()}\$',
                         style: TextStyle(
                           fontSize: screenWidth * 0.035,
                           color: const Color.fromARGB(255, 1, 169, 225),
@@ -135,8 +140,7 @@ class HotelCardElement extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    BookingFormScreenOne(
+                                builder: (context) => BookingFormScreenOne(
                                   costPerRoomPerDay: hotel.price.toInt(),
                                 ),
                               ),
