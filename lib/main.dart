@@ -101,6 +101,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         home: Scaffold(
+          // body: _screens[_currentIndex],
           body: _screens[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,

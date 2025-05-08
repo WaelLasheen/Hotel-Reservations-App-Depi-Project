@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_application_1/search/search_delegate.dart';
 
 class AppHeader extends StatelessWidget {
   const AppHeader({super.key});
@@ -58,6 +59,7 @@ class AppHeader extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
+              const SearchPage(),
             ],
           ),
         ),
