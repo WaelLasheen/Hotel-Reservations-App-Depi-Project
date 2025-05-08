@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:intl/intl.dart';
 
 class BookingProvider with ChangeNotifier {
   DateTime? _startDate;
   DateTime? _endDate;
-  int _roomPrice = 0;
+  Hotel? _hotel;
   int _numberOfGuests = 1;
   int _numberOfRooms = 1;
   String _firstName = '';
@@ -13,7 +14,7 @@ class BookingProvider with ChangeNotifier {
   String _email = '';
   String? _idImagePath;
 
-  int get roomPrice => _roomPrice;
+  Hotel? get hotel => _hotel;
   int get numberOfGuests => _numberOfGuests;
   int get numberOfRooms => _numberOfRooms;
   DateTime? get startDate => _startDate;
@@ -24,8 +25,8 @@ class BookingProvider with ChangeNotifier {
   String get email => _email;
   String? get idImagePath => _idImagePath;
 
-  void setRoomPrice(int price) {
-    _roomPrice = price;
+  void setHotel(Hotel hotel) {
+    _hotel = hotel;
     notifyListeners();
   }
 
@@ -104,7 +105,7 @@ class BookingProvider with ChangeNotifier {
   }
 
   int calculateCost() {
-    return numberOfBookedDays() * roomPrice * numberOfRooms;
+    return numberOfBookedDays() * hotel!.price.toInt() * numberOfRooms;
   }
 
   bool isFulled() =>
@@ -118,5 +119,19 @@ class BookingProvider with ChangeNotifier {
     date ??= DateTime.now();
 
     return DateFormat('MMM d').format(date);
+  }
+
+  void cleanBookingDate(){
+    _startDate = null;
+    _endDate = null;
+    _numberOfGuests = 1;
+    _numberOfRooms = 1;
+    _firstName = '';
+    _lastName = '';
+    _phoneNumber = '';
+    _email = '';
+    _idImagePath = null;
+    _hotel = null;
+    notifyListeners();
   }
 }

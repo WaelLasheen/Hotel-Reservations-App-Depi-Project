@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
+import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
@@ -22,7 +24,9 @@ class HotelDetailsScreen extends StatelessWidget {
       'https://cf.bstatic.com/xdata/images/hotel/max500/607574115.jpg?k=6f532852baf8694592420be945c254711e95974ea36111a379d4ef0ecd7f0867&o',
       'https://cf.bstatic.com/xdata/images/hotel/max500/29857346.jpg?k=a87128bed9b8c6f88e97aef3b92beaa31803686b07187b3450d3470988b83ef9&o',
     ];
-    final provider = Provider.of<HotelProvider>(context);
+    final hotelProvider = Provider.of<HotelProvider>(context);
+    final bookingProvider = Provider.of<BookingProvider>(context);
+    final calenderProvider = Provider.of<CalenderProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -75,7 +79,7 @@ class HotelDetailsScreen extends StatelessWidget {
                               color: Color(0xFF616161),
                             ),
                       onPressed: () {
-                        provider.toggleFavorite(hotel.id);
+                        hotelProvider.toggleFavorite(hotel.id);
                       },
                     ),
                   ),
@@ -248,10 +252,12 @@ class HotelDetailsScreen extends StatelessWidget {
                           height: 50.0,
                           child: ElevatedButton(
                             onPressed: () {
+                              bookingProvider.cleanBookingDate();
+                              calenderProvider.resetDate();
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => BookingFormScreenOne(
-                                    costPerRoomPerDay: hotel.price.toInt(),
+                                    hotel: hotel,
                                   ),
                                 ),
                               );

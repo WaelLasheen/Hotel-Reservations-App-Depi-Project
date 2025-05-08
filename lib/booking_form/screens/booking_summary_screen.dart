@@ -5,9 +5,9 @@ import 'package:flutter_application_1/booking_form/screens/widgets/custom_appbar
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_button.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/core/utils/text_styles_manager.dart';
+import 'package:flutter_application_1/core/widgets/booking_summary_card.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class BookingSummaryScreen extends StatelessWidget {
   const BookingSummaryScreen({super.key});
@@ -29,77 +29,7 @@ class BookingSummaryScreen extends StatelessWidget {
             children: [
               _client_Details_Section(bookingProvider),
               const SizedBox(height: 16),
-              ///////////////////////////////////////////////////////
-              /// this is just dummy data and it will be added in future as object at provider to make it more formatted
-              /// it will be a separated widget in future
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: ColorsManager.grey300)),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            'https://img.freepik.com/free-photo/room-interior-hotel-bedroom_23-2150683419.jpg?t=st=1745259268~exp=1745262868~hmac=2eafe526e38eedf78d670478b7358b1694347c7b043d9118a27d9b26db1e36ea&w=1380',
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Container(
-                          width: 100,
-                          height: 100,
-                          color: Colors.grey[200],
-                          child:
-                              const Center(child: CircularProgressIndicator()),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          width: 100,
-                          height: 100,
-                          color: Colors.grey[200],
-                          child: const Icon(Icons.image, size: 30),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Estabeez Hotel',
-                                style: TextStyleManager.blackBold16,
-                              ),
-                              Icon(Icons.favorite_border,
-                                  color: ColorsManager.grey600),
-                            ],
-                          ),
-                          const Text('Ikoyi, Lagos',
-                              style: TextStyleManager.greyRegular14),
-                          Text(
-                              'NGN ${NumberFormat('#,###').format(bookingProvider.roomPrice)}/night',
-                              style: TextStyleManager.greyRegular14),
-                          const Row(
-                            children: [
-                              Icon(Icons.star, color: Colors.amber, size: 16),
-                              SizedBox(width: 4),
-                              Text(
-                                '4.8',
-                                style: TextStyleManager.blackSemiBold15,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ///////////////////////////////////////////////////////
+              const BookingSummaryCard(),
               const SizedBox(height: 24),
               _room_Details_Section(bookingProvider),
               const SizedBox(height: 32),

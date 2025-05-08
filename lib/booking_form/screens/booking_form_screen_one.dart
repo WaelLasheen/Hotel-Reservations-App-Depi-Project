@@ -7,14 +7,15 @@ import 'package:flutter_application_1/booking_form/screens/widgets/check_card.da
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_appbar.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_button.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/number_selector.dart';
+import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/utils/text_styles_manager.dart';
 import 'package:provider/provider.dart';
 
 class BookingFormScreenOne extends StatelessWidget {
-  final int costPerRoomPerDay;
+  final Hotel hotel;
   const BookingFormScreenOne({
     super.key,
-    required this.costPerRoomPerDay,
+    required this.hotel,
   });
 
   @override
@@ -87,7 +88,7 @@ class BookingFormScreenOne extends StatelessWidget {
                               calenderProvider.startBookingDate!,
                               calenderProvider.endBookingDate,
                             );
-                            bookingProvider.setRoomPrice(costPerRoomPerDay);
+                            bookingProvider.setHotel(hotel);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) =>

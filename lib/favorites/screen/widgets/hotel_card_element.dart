@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
+import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 
 class HotelCardElement extends StatelessWidget {
   final Hotel hotel;
@@ -20,6 +23,8 @@ class HotelCardElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookingProvider = Provider.of<BookingProvider>(context);
+    final calenderProvider = Provider.of<CalenderProvider>(context);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -151,10 +156,12 @@ class HotelCardElement extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 2),
                         child: ElevatedButton(
                           onPressed: () {
+                            bookingProvider.cleanBookingDate();
+                            calenderProvider.resetDate();
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => BookingFormScreenOne(
-                                  costPerRoomPerDay: hotel.price.toInt(),
+                                  hotel: hotel,
                                 ),
                               ),
                             );

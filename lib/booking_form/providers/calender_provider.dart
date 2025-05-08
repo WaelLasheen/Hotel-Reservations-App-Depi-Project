@@ -84,4 +84,10 @@ class CalenderProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void resetDate(){
+    _startBookingDate = null;
+    _endBookingDate = null;
+    notifyListeners();
+  }
 }
