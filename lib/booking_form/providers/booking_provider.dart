@@ -147,7 +147,7 @@ class BookingProvider with ChangeNotifier {
     );
   }
 
-  Booking BuildBooking() {
+  Booking buildBooking() {
     return Booking(
       hotel: hotel!,
       client: buildClient(),

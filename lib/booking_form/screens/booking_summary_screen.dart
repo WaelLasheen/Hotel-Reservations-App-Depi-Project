@@ -17,7 +17,7 @@ class BookingSummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final BookingProvider bookingProvider =
         Provider.of<BookingProvider>(context, listen: false);
-        final BookingHistoryProvider bookingHistoryProvider =
+    final BookingHistoryProvider bookingHistoryProvider =
         Provider.of<BookingHistoryProvider>(context);
 
     return Scaffold(
@@ -39,7 +39,8 @@ class BookingSummaryScreen extends StatelessWidget {
               CustomButton(
                 text: 'Confirm Payment',
                 onPressed: () {
-                  bookingHistoryProvider.addBooking(bookingProvider.BuildBooking());
+                  bookingHistoryProvider
+                      .addBooking(bookingProvider.buildBooking());
                   _showPaymentSuccessDialog(context, bookingProvider);
                 },
               ),
