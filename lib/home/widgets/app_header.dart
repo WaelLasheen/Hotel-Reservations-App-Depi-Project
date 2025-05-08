@@ -52,6 +52,7 @@ class AppHeader extends StatelessWidget {
                 ],
               ),
               const Spacer(),
+              const SearchPage(),
               IconButton(
                 icon: Icon(
                   Icons.notifications_outlined,
@@ -59,7 +60,6 @@ class AppHeader extends StatelessWidget {
                 ),
                 onPressed: () {},
               ),
-              const SearchPage(),
             ],
           ),
         ),
