@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/booking.dart';
+import 'package:flutter_application_1/core/models/client.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:intl/intl.dart';
 
@@ -121,7 +123,7 @@ class BookingProvider with ChangeNotifier {
     return DateFormat('MMM d').format(date);
   }
 
-  void cleanBookingDate(){
+  void cleanBookingDate() {
     _startDate = null;
     _endDate = null;
     _numberOfGuests = 1;
@@ -133,5 +135,26 @@ class BookingProvider with ChangeNotifier {
     _idImagePath = null;
     _hotel = null;
     notifyListeners();
+  }
+
+  Client buildClient() {
+    return Client(
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      email: email,
+      idImagePath: idImagePath!,
+    );
+  }
+
+  Booking BuildBooking() {
+    return Booking(
+      hotel: hotel!,
+      client: buildClient(),
+      startDate: startDate!,
+      endDate: endDate!,
+      numberOfGuests: numberOfGuests,
+      numberOfRooms: numberOfRooms,
+    );
   }
 }

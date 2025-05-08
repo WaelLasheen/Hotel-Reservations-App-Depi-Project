@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
 import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
+import 'package:flutter_application_1/booking_history/screens/booking_history_screen.dart';
+import 'package:flutter_application_1/core/provider/booking_history_provider.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
 import 'package:flutter_application_1/database/hotel_database_helper.dart';
 import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
@@ -28,7 +30,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final List<Widget> _screens = [
     const HotelListingScreen(),
-    const Center(child: Text('Bookings')),
+    const BookingHistoryScreen(),
     const FavoritesScreen(),
     const Center(child: Text('Profile'))
   ];
@@ -42,6 +44,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CalenderProvider()),
         ChangeNotifierProvider(create: (_) => BookingProvider()),
         ChangeNotifierProvider(create: (_) => HotelProvider()..loadHotels()),
+        ChangeNotifierProvider(create: (_) => BookingHistoryProvider()..loadBookings()),
       ],
       child: MaterialApp(
         title: 'CozyGo',

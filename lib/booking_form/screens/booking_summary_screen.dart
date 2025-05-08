@@ -3,9 +3,10 @@ import 'package:flutter_application_1/booking_form/providers/booking_provider.da
 import 'package:flutter_application_1/booking_form/screens/widgets/check_card.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_appbar.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/custom_button.dart';
+import 'package:flutter_application_1/core/provider/booking_history_provider.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/core/utils/text_styles_manager.dart';
-import 'package:flutter_application_1/core/widgets/booking_summary_card.dart';
+import 'package:flutter_application_1/booking_form/screens/widgets/booking_summary_card.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +17,8 @@ class BookingSummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final BookingProvider bookingProvider =
         Provider.of<BookingProvider>(context, listen: false);
+        final BookingHistoryProvider bookingHistoryProvider =
+        Provider.of<BookingHistoryProvider>(context);
 
     return Scaffold(
       appBar: const CustomAppBar(
@@ -36,6 +39,7 @@ class BookingSummaryScreen extends StatelessWidget {
               CustomButton(
                 text: 'Confirm Payment',
                 onPressed: () {
+                  bookingHistoryProvider.addBooking(bookingProvider.BuildBooking());
                   _showPaymentSuccessDialog(context, bookingProvider);
                 },
               ),
