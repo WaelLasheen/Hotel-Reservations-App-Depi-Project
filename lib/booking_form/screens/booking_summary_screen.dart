@@ -92,8 +92,7 @@ class BookingSummaryScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyApp()),
+                      MaterialPageRoute(builder: (context) => const MyApp()),
                       (Route<dynamic> route) => false,
                     );
                   },
@@ -105,8 +104,7 @@ class BookingSummaryScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyApp()),
+                      MaterialPageRoute(builder: (context) => const MyApp()),
                       (Route<dynamic> route) => false,
                     );
                   },
@@ -183,8 +181,23 @@ class BookingSummaryScreen extends StatelessWidget {
           const SizedBox(height: 16),
           _oneLineText('Number of rooms', '${bookingProvider.numberOfRooms}'),
           const SizedBox(height: 16),
-          _oneLineText('Total',
-              "NGN ${NumberFormat('#,###').format(bookingProvider.calculateCost())}"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Total', style: TextStyleManager.grey600Regular16),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          'EGP ${NumberFormat('#,###').format(bookingProvider.calculateCost())}',
+                      style: TextStyleManager.blackSemiBold15,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

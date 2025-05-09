@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/hotel_details/hotel_details_screen.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class HotelCard extends StatelessWidget {
@@ -77,12 +78,26 @@ class HotelCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Text(
-                        '\$${hotel.price.toInt()}',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green[700],
+                      RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                            TextSpan(
+                              text: 'EGP ${hotel.price.toInt()}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: ColorsManager.blue,
+                              ),
+                            ),
+                            const TextSpan(
+                              text: '/night',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

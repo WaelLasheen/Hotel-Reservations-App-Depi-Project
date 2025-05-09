@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/core/utils/images_manager.dart';
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -7,9 +9,9 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration:  const BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(ImagesManager.logo),
+            image: AssetImage(ImagesManager.welcomeBG),
             fit: BoxFit.cover,
           ),
         ),
@@ -51,9 +53,12 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.pushReplacementNamed(context, '/login');
                     },
                     style: ElevatedButton.styleFrom(
-                      // backgroundColor: AppTheme.accentColor,
-                      // foregroundColor: AppTheme.primaryColor,
+                      backgroundColor: ColorsManager.accent,
+                      foregroundColor: ColorsManager.surface,
                       padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     child: const Text(
                       'Get Started',
@@ -69,9 +74,12 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.pushReplacementNamed(context, '/signup');
                     },
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.white),
+                      foregroundColor: ColorsManager.surface,
+                      side: const BorderSide(color: ColorsManager.surface),
                       padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     child: const Text(
                       'Create Account',
@@ -90,4 +98,4 @@ class WelcomeScreen extends StatelessWidget {
       ),
     );
   }
-} 
+}

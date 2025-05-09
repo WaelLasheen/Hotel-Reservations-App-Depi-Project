@@ -62,9 +62,25 @@ class BookingSummaryCard extends StatelessWidget {
                 ),
                 Text(bookingProvider.hotel!.location,
                     style: TextStyleManager.greyRegular14),
-                Text(
-                    'NGN ${NumberFormat('#,###').format(bookingProvider.hotel!.price)}/night',
-                    style: TextStyleManager.greyRegular14),
+                RichText(
+                  text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: [
+                      TextSpan(
+                        text:
+                            'EGP ${NumberFormat('#,###').format(bookingProvider.hotel!.price)}',
+                        style: TextStyleManager.greyRegular14,
+                      ),
+                      const TextSpan(
+                        text: '/night',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Row(
                   children: [
                     const Icon(Icons.star, color: Colors.amber, size: 16),

@@ -119,12 +119,28 @@ class HotelCardElement extends StatelessWidget {
                       ),
                       SizedBox(height: screenWidth * 0.015),
                       // Price
-                      Text(
-                        '${hotel.price.toInt()}\$',
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.035,
-                          color: const Color.fromARGB(255, 1, 169, 225),
-                          fontWeight: FontWeight.bold,
+                      RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                            TextSpan(
+                              text: 'EGP ${hotel.price.toInt()}',
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.04,
+                                fontWeight: FontWeight.bold,
+                                color: ColorsManager.blue,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '/night',
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.028,
+                                color: Colors.grey,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: screenWidth * 0.015),

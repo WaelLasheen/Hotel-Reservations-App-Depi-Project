@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/auth/providers/client_provider.dart';
 import 'package:flutter_application_1/auth/screens/login_screen.dart';
+import 'package:flutter_application_1/auth/screens/signup_screen.dart';
 import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
 import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/booking_history/screens/booking_history_screen.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_application_1/home/screens/hotel_listing_screen.dart';
 import 'package:flutter_application_1/database/data/sample_data.dart';
 import 'package:flutter_application_1/profile/screen/profile_screen.dart';
 import 'package:flutter_application_1/splash/screen/splash_screen.dart';
+import 'package:flutter_application_1/splash/screen/welcome_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -61,100 +63,110 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF2B2D42),
-            primary: const Color(0xFF2B2D42),
-            secondary: const Color(0xFF8D99AE),
-            tertiary: const Color(0xFFEF233C),
-            background: const Color(0xFFEDF2F4),
-            surface: Colors.white,
+            seedColor: ColorsManager.primary,
+            primary: ColorsManager.primary,
+            secondary: ColorsManager.secondary,
+            tertiary: ColorsManager.accent,
+            background: ColorsManager.background,
+            surface: ColorsManager.surface,
           ),
           useMaterial3: true,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-            foregroundColor: Color(0xFF2B2D42),
+            backgroundColor: ColorsManager.surface,
+            foregroundColor: ColorsManager.primary,
             elevation: 0,
           ),
           textTheme: const TextTheme(
             titleLarge: TextStyle(
-              color: Color(0xFF2B2D42),
+              color: ColorsManager.primary,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
             titleMedium: TextStyle(
-              color: Color(0xFF2B2D42),
+              color: ColorsManager.primary,
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
             bodyLarge: TextStyle(
-              color: Color(0xFF2B2D42),
+              color: ColorsManager.primary,
               fontSize: 16,
             ),
             bodyMedium: TextStyle(
-              color: Color(0xFF8D99AE),
+              color: ColorsManager.secondary,
               fontSize: 14,
             ),
           ),
           cardTheme: CardTheme(
-            color: Colors.white,
+            color: ColorsManager.surface,
             elevation: 4,
-            shadowColor: const Color(0xFF2B2D42).withOpacity(0.1),
+            shadowColor: ColorsManager.primary.withOpacity(0.1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
           ),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.white,
-            selectedItemColor: Color(0xFF2B2D42),
-            unselectedItemColor: Color(0xFF8D99AE),
+            backgroundColor: ColorsManager.surface,
+            selectedItemColor: ColorsManager.primary,
+            unselectedItemColor: ColorsManager.secondary,
             type: BottomNavigationBarType.fixed,
             elevation: 8,
           ),
         ),
-        home: Scaffold(
-          // body: _screens[_currentIndex],
-          body: const LoginScreen(),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              if (_currentIndex != index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              }
-            },
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: ColorsManager.blue,
-            unselectedItemColor: Colors.grey,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  _currentIndex == 0 ? Icons.home : Icons.home_outlined,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+          '/welcome': (context) => const WelcomeScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => const SignupScreen(),
+          '/home': (context) => Scaffold(
+                body: _screens[_currentIndex],
+                bottomNavigationBar: BottomNavigationBar(
+                  currentIndex: _currentIndex,
+                  onTap: (index) {
+                    if (_currentIndex != index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    }
+                  },
+                  type: BottomNavigationBarType.fixed,
+                  selectedItemColor: ColorsManager.primary,
+                  unselectedItemColor: ColorsManager.secondary,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        _currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                      ),
+                      label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        _currentIndex == 1
+                            ? Icons.calendar_today
+                            : Icons.calendar_today_outlined,
+                      ),
+                      label: 'Bookings',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        _currentIndex == 2
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                      ),
+                      label: 'Saved',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        _currentIndex == 3
+                            ? Icons.person
+                            : Icons.person_outline,
+                      ),
+                      label: 'Profile',
+                    ),
+                  ],
                 ),
-                label: 'Home',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  _currentIndex == 1
-                      ? Icons.calendar_today
-                      : Icons.calendar_today_outlined,
-                ),
-                label: 'Bookings',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  _currentIndex == 2 ? Icons.favorite : Icons.favorite_border,
-                ),
-                label: 'Saved',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  _currentIndex == 3 ? Icons.person : Icons.person_outline,
-                ),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
+        },
       ),
     );
   }

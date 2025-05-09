@@ -4,6 +4,7 @@ import 'package:flutter_application_1/booking_form/providers/calender_provider.d
 import 'package:flutter_application_1/booking_form/screens/booking_form_screen_one.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -102,12 +103,25 @@ class HotelDetailsScreen extends StatelessWidget {
                           color: Colors.grey[800],
                         ),
                       ),
-                      Text(
-                        '\$${hotel.price.toInt()} per Night',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.green[600],
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'EGP ${hotel.price.toInt()}',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: ColorsManager.blue,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '/night',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: ColorsManager.grey600,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
