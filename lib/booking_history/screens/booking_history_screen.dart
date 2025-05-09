@@ -10,90 +10,99 @@ class BookingHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BookingHistoryProvider bookingsHistoryProvider =
-        Provider.of<BookingHistoryProvider>(context);
-    final List<Booking> bookings = bookingsHistoryProvider.bookings;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking History'),
         elevation: 0,
       ),
-      body: bookings.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.history,
-                    size: 64,
-                    color: Colors.grey[400],
+      body: Consumer<BookingHistoryProvider>(
+        builder: (context, bookingsHistoryProvider, _) {
+          final List<Booking> bookings = bookingsHistoryProvider.bookings;
+          final bool isLoading = bookingsHistoryProvider.isLoading;
+
+          if (isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return bookings.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.history,
+                        size: 64,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'No bookings yet',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No bookings yet',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              itemCount: bookings.length,
-              itemBuilder: (context, index) {
-                final booking = bookings[index];
-                return Dismissible(
-                  key: Key(booking.id.toString()),
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    alignment: Alignment.centerRight,
-                    color: Colors.red,
-                    padding: const EdgeInsets.only(right: 20),
-                    child: const Icon(Icons.delete, color: Colors.white),
-                  ),
-                  confirmDismiss: (direction) async {
-                    return await showDialog<bool>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text("Delete Booking?"),
-                        content: const Text(
-                            "Are you sure you want to delete this booking?"),
-                        actions: [
-                          TextButton(
-                              onPressed: () => Navigator.pop(context, false),
-                              child: const Text("Cancel")),
-                          TextButton(
-                              onPressed: () => Navigator.pop(context, true),
-                              child: const Text("Delete")),
-                        ],
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  itemCount: bookings.length,
+                  itemBuilder: (context, index) {
+                    final booking = bookings[index];
+                    return Dismissible(
+                      key: Key(booking.id.toString()),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        color: Colors.red,
+                        padding: const EdgeInsets.only(right: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      confirmDismiss: (direction) async {
+                        return await showDialog<bool>(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: const Text("Delete Booking?"),
+                            content: const Text(
+                                "Are you sure you want to delete this booking?"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context, false),
+                                  child: const Text("Cancel")),
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: const Text("Delete")),
+                            ],
+                          ),
+                        );
+                      },
+                      onDismissed: (_) {
+                        bookingsHistoryProvider.deleteBooking(booking.id!);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Booking deleted")),
+                        );
+                      },
+                      child: BookingHistoryItem(
+                        booking: booking,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookingDetailsScreen(
+                                booking: booking,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
-                  onDismissed: (_) {
-                    bookingsHistoryProvider.deleteBooking(booking.id!);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Booking deleted")),
-                    );
-                  },
-                  child: BookingHistoryItem(
-                    booking: booking,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BookingDetailsScreen(
-                            booking: booking,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
                 );
-              },
-            ),
+        },
+      ),
     );
   }
 }

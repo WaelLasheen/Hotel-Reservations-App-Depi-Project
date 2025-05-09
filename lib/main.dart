@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
 import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/booking_history/screens/booking_history_screen.dart';
 import 'package:flutter_application_1/core/provider/booking_history_provider.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/database/hotel_database_helper.dart';
 import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
 import 'package:flutter_application_1/home/screens/hotel_listing_screen.dart';
 import 'package:flutter_application_1/database/data/sample_data.dart';
+import 'package:flutter_application_1/profile/screen/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -16,6 +19,8 @@ void main() async {
   if (hotels.isEmpty) {
     SampleData().insertTestCase();
   }
+
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   runApp(const MyApp());
 }
@@ -32,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     const HotelListingScreen(),
     const BookingHistoryScreen(),
     const FavoritesScreen(),
-    const Center(child: Text('Profile'))
+    const ProfileScreen()
   ];
 
   int _currentIndex = 0;
@@ -44,7 +49,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CalenderProvider()),
         ChangeNotifierProvider(create: (_) => BookingProvider()),
         ChangeNotifierProvider(create: (_) => HotelProvider()..loadHotels()),
-        ChangeNotifierProvider(create: (_) => BookingHistoryProvider()..loadBookings()),
+        ChangeNotifierProvider(
+            create: (_) => BookingHistoryProvider()..loadBookings()),
       ],
       child: MaterialApp(
         title: 'CozyGo',
@@ -101,7 +107,6 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         home: Scaffold(
-          // body: _screens[_currentIndex],
           body: _screens[_currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
@@ -112,21 +117,34 @@ class _MyAppState extends State<MyApp> {
                 });
               }
             },
-            items: const [
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: ColorsManager.blue,
+            unselectedItemColor: Colors.grey,
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(
+                  _currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                ),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
+                icon: Icon(
+                  _currentIndex == 1
+                      ? Icons.calendar_today
+                      : Icons.calendar_today_outlined,
+                ),
                 label: 'Bookings',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
+                icon: Icon(
+                  _currentIndex == 2 ? Icons.favorite : Icons.favorite_border,
+                ),
                 label: 'Saved',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
+                icon: Icon(
+                  _currentIndex == 3 ? Icons.person : Icons.person_outline,
+                ),
                 label: 'Profile',
               ),
             ],

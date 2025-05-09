@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/hotel.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
-import 'package:flutter_application_1/widgets/empty_state.dart';
-import 'package:flutter_application_1/widgets/hotel_card.dart';
+import 'package:flutter_application_1/search/widgets/empty_state.dart';
+import 'package:flutter_application_1/search/widgets/hotel_card.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {

@@ -7,6 +7,7 @@ import 'package:flutter_application_1/core/provider/booking_history_provider.dar
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/core/utils/text_styles_manager.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/booking_summary_card.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -89,7 +90,12 @@ class BookingSummaryScreen extends StatelessWidget {
                 CustomButton(
                   text: 'View Booking Ticket',
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyApp()),
+                      (Route<dynamic> route) => false,
+                    );
                   },
                   backgroundColor: ColorsManager.black,
                 ),
@@ -97,7 +103,12 @@ class BookingSummaryScreen extends StatelessWidget {
                 CustomButton(
                   text: 'Cancel',
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyApp()),
+                      (Route<dynamic> route) => false,
+                    );
                   },
                   backgroundColor: ColorsManager.grey600,
                 ),

@@ -4,25 +4,28 @@ import 'package:flutter_application_1/database/booking_history_database_helper.d
 
 class BookingHistoryProvider with ChangeNotifier {
   List<Booking> _bookings = [];
+  bool _isLoading = false;
 
   List<Booking> get bookings => _bookings;
+  bool get isLoading => _isLoading;
 
   Future<void> loadBookings() async {
+    _isLoading = true; 
+    notifyListeners();
     _bookings = await BookingDatabase.getBookings();
+    _isLoading = false; 
     notifyListeners();
   }
 
   Future<void> addBooking(Booking booking) async {
     await BookingDatabase.insertBooking(booking);
-    // _bookings.add(booking);
-    loadBookings();
+    await loadBookings(); 
     notifyListeners();
   }
 
   Future<void> deleteBooking(int id) async {
     await BookingDatabase.deleteBooking(id);
-    loadBookings();
-    // _bookings.removeWhere((b) => b.id == id);
+    await loadBookings(); 
     notifyListeners();
   }
 }

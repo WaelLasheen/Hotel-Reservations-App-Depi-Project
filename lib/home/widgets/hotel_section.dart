@@ -45,7 +45,7 @@ class HotelSection extends StatelessWidget {
         const SizedBox(height: 16),
         if (!isHorizontal)
           SizedBox(
-            height: 284,
+            height: 290,
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
