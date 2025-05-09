@@ -34,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Welcome to\nLuxury Stays',
+                    'Welcome to\nCozyGo',
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
                           color: Colors.white,
                           height: 1.2,
