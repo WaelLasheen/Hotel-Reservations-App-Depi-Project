@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/auth/providers/client_provider.dart';
+import 'package:flutter_application_1/auth/screens/login_screen.dart';
 import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
 import 'package:flutter_application_1/booking_form/providers/calender_provider.dart';
 import 'package:flutter_application_1/booking_history/screens/booking_history_screen.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
 import 'package:flutter_application_1/home/screens/hotel_listing_screen.dart';
 import 'package:flutter_application_1/database/data/sample_data.dart';
 import 'package:flutter_application_1/profile/screen/profile_screen.dart';
+import 'package:flutter_application_1/splash/screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -51,6 +54,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => HotelProvider()..loadHotels()),
         ChangeNotifierProvider(
             create: (_) => BookingHistoryProvider()..loadBookings()),
+        ChangeNotifierProvider(create: (_) => ClientProvider()),
       ],
       child: MaterialApp(
         title: 'CozyGo',
@@ -107,7 +111,8 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         home: Scaffold(
-          body: _screens[_currentIndex],
+          // body: _screens[_currentIndex],
+          body: const LoginScreen(),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (index) {

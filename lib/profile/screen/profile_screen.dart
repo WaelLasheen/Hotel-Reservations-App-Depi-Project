@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/booking_history/screens/booking_history_screen.dart';
-import 'package:flutter_application_1/core/models/booking.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
 import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +9,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
