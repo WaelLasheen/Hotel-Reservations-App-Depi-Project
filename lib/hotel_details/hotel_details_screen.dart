@@ -126,7 +126,7 @@ class HotelDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6.0),
+                  const SizedBox(height: 8),
                   Row(
                     children: <Widget>[
                       const Icon(Icons.star, color: Colors.amber, size: 18.0),
@@ -162,10 +162,10 @@ class HotelDetailsScreen extends StatelessWidget {
                     onTap: () {
                       // action
                     },
-                    child: Text(
+                    child: const Text(
                       'Read More',
                       style: TextStyle(
-                        color: Colors.blue[700],
+                        color: ColorsManager.blue,
                         fontWeight: FontWeight.bold,
                         fontSize: 15.0,
                       ),
@@ -200,7 +200,7 @@ class HotelDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10.0),
                   SizedBox(
-                    height: 90.0,
+                    height: 110,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: galleryImages.length,
@@ -211,19 +211,19 @@ class HotelDetailsScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10.0),
                             child: CachedNetworkImage(
                               imageUrl: galleryImages[index],
-                              width: 120.0,
-                              height: 90.0,
+                              width: 125,
+                              height: 100,
                               fit: BoxFit.cover,
                               placeholder: (context, url) => Container(
-                                width: 120.0,
-                                height: 90.0,
+                                width: 125,
+                                height: 100,
                                 color: Colors.grey[200],
                                 child: const Center(
                                     child: CircularProgressIndicator()),
                               ),
                               errorWidget: (context, url, error) => Container(
-                                width: 120.0,
-                                height: 90.0,
+                                width: 125,
+                                height: 100,
                                 color: Colors.grey[200],
                                 child: const Icon(Icons.image, size: 30),
                               ),
@@ -233,12 +233,12 @@ class HotelDetailsScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30.0),
+                  const SizedBox(height: 40),
                   Row(
                     children: <Widget>[
                       Expanded(
                         child: SizedBox(
-                          height: 50.0,
+                          height: 55,
                           child: OutlinedButton(
                             onPressed: () {
                               // action
@@ -249,11 +249,11 @@ class HotelDetailsScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Map View',
                               style: TextStyle(
-                                color: Colors.blue[700],
-                                fontSize: 16.0,
+                                color: ColorsManager.blue,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -277,7 +277,7 @@ class HotelDetailsScreen extends StatelessWidget {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[700],
+                              backgroundColor: ColorsManager.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
