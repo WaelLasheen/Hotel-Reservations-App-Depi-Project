@@ -9,6 +9,7 @@ import 'package:flutter_application_1/core/utils/text_styles_manager.dart';
 import 'package:flutter_application_1/booking_form/screens/widgets/booking_summary_card.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_application_1/booking_form/screens/booking_qr_screen.dart';
 
 class BookingSummaryScreen extends StatelessWidget {
   const BookingSummaryScreen({super.key});
@@ -89,10 +90,11 @@ class BookingSummaryScreen extends StatelessWidget {
                 CustomButton(
                   text: 'View Booking Ticket',
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
+                    Navigator.push(
                       context,
-                      '/home',
-                      (Route<dynamic> route) => false,
+                      MaterialPageRoute(
+                        builder: (context) => const BookingQRScreen(),
+                      ),
                     );
                   },
                   backgroundColor: ColorsManager.black,
