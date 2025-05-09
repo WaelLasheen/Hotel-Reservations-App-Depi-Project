@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/auth/providers/client_provider.dart';
+import 'package:flutter_application_1/core/provider/client_provider.dart';
 import 'package:flutter_application_1/core/models/client.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:provider/provider.dart';

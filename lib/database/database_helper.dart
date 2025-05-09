@@ -2,13 +2,14 @@ import 'package:flutter_application_1/core/models/client.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DatabaseHelper {
-  static final DatabaseHelper _instance = DatabaseHelper._internal();
+class ClientDatabaseHelper {
+  static final ClientDatabaseHelper _instance =
+      ClientDatabaseHelper._internal();
   static Database? _database;
 
-  factory DatabaseHelper() => _instance;
+  factory ClientDatabaseHelper() => _instance;
 
-  DatabaseHelper._internal();
+  ClientDatabaseHelper._internal();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -48,7 +49,7 @@ class DatabaseHelper {
           'firstName': client.firstName,
           'lastName': client.lastName,
           'phoneNumber': client.phoneNumber,
-          'password': password, // In a real app, this should be hashed
+          'password': password, 
           'idImagePath': client.idImagePath,
         },
         conflictAlgorithm: ConflictAlgorithm.replace,

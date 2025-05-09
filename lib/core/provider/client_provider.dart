@@ -2,9 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_application_1/core/models/client.dart';
 import 'package:flutter_application_1/database/database_helper.dart';
 
-
 class ClientProvider with ChangeNotifier {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final ClientDatabaseHelper _dbHelper = ClientDatabaseHelper();
   Client? _currentClient;
   bool _isLoading = false;
   String? _error;

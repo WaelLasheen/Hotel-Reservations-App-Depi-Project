@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/auth/providers/client_provider.dart';
+import 'package:flutter_application_1/core/provider/client_provider.dart';
 import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:provider/provider.dart';
 import 'signup_screen.dart';
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.lock_outline,
                     size: 80,
                     color: ColorsManager.accent,
@@ -70,11 +70,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      prefixIcon: Icon(Icons.email_outlined,
+                      prefixIcon: const Icon(Icons.email_outlined,
                           color: ColorsManager.secondary),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: ColorsManager.secondary),
+                        borderSide: const BorderSide(color: ColorsManager.secondary),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: ColorsManager.accent),
+                        borderSide: const BorderSide(color: ColorsManager.accent),
                       ),
                     ),
                     validator: (value) {
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock_outline,
+                      prefixIcon: const Icon(Icons.lock_outline,
                           color: ColorsManager.secondary),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: ColorsManager.secondary),
+                        borderSide: const BorderSide(color: ColorsManager.secondary),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: ColorsManager.accent),
+                        borderSide: const BorderSide(color: ColorsManager.accent),
                       ),
                     ),
                     validator: (value) {
@@ -186,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(top: 16),
                           child: Text(
                             provider.error!,
-                            style: TextStyle(color: ColorsManager.error),
+                            style: const TextStyle(color: ColorsManager.error),
                             textAlign: TextAlign.center,
                           ),
                         );

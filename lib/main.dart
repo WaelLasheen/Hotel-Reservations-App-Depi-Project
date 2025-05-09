@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/auth/providers/client_provider.dart';
+import 'package:flutter_application_1/core/provider/client_provider.dart';
 import 'package:flutter_application_1/auth/screens/login_screen.dart';
 import 'package:flutter_application_1/auth/screens/signup_screen.dart';
 import 'package:flutter_application_1/booking_form/providers/booking_provider.dart';
