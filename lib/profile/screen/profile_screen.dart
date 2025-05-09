@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/booking_history/screens/booking_history_screen.dart';
 import 'package:flutter_application_1/core/provider/hotel_provider.dart';
+import 'package:flutter_application_1/core/provider/client_provider.dart';
+import 'package:flutter_application_1/core/provider/booking_history_provider.dart';
+import 'package:flutter_application_1/core/utils/colors_manager.dart';
 import 'package:flutter_application_1/favorites/screen/favorites_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -12,11 +15,12 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
+        backgroundColor: ColorsManager.primary,
+        foregroundColor: ColorsManager.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // TODO: Implement settings navigation
             },
           ),
         ],
@@ -28,46 +32,61 @@ class ProfileScreen extends StatelessWidget {
             // Profile Picture
             CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.grey[300],
+              backgroundColor: ColorsManager.grey300,
               child: const Icon(
                 Icons.person,
                 size: 50,
-                color: Colors.grey,
+                color: ColorsManager.grey,
               ),
             ),
             const SizedBox(height: 16),
-            // Name
-            const Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            // Email
-            const Text(
-              'john.doe@example.com',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+            Consumer<ClientProvider>(
+              builder: (context, clientProvider, child) {
+                final client = clientProvider.currentClient;
+                return Column(
+                  children: [
+                    Text(
+                      client != null
+                          ? '${client.firstName} ${client.lastName}'
+                          : 'Guest',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: ColorsManager.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      client?.email ?? 'Not logged in',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: ColorsManager.grey600,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 24),
-            // Stats Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildStatItem('Bookings', '12'),
+                  Consumer<BookingHistoryProvider>(
+                    builder: (context, bookingProvider, child) {
+                      return _buildStatItem(
+                        'Bookings',
+                        bookingProvider.bookings.length.toString(),
+                      );
+                    },
+                  ),
                   _buildStatItem('Reviews', '8'),
                   _buildStatItem('Points', '1,250'),
                 ],
               ),
             ),
             const SizedBox(height: 32),
-            // Menu Items
             _buildMenuItem(
               icon: Icons.history,
               title: 'Booking History',
@@ -113,6 +132,51 @@ class ProfileScreen extends StatelessWidget {
               title: 'Help & Support',
               onTap: () {},
             ),
+            const Divider(height: 32),
+            // Delete Account Option
+            Consumer<ClientProvider>(
+              builder: (context, clientProvider, child) {
+                return _buildMenuItem(
+                  icon: Icons.delete_forever,
+                  title: 'Delete Account',
+                  textColor: ColorsManager.error,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Delete Account'),
+                        content: const Text(
+                            'Are you sure you want to delete your account? This action cannot be undone.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              final email = clientProvider.currentClient?.email;
+                              if (email != null) {
+                                await clientProvider.logout();
+                                Navigator.pop(context); 
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/welcome',
+                                  (route) =>
+                                      false, 
+                                );
+                              }
+                            },
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(color: ColorsManager.error),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -127,14 +191,15 @@ class ProfileScreen extends StatelessWidget {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: ColorsManager.primary,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
-            color: Colors.grey,
+            color: ColorsManager.grey600,
           ),
         ),
       ],
@@ -146,10 +211,14 @@ class ProfileScreen extends StatelessWidget {
     required String title,
     String? subtitle,
     required VoidCallback onTap,
+    Color? textColor,
   }) {
     return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
+      leading: Icon(icon, color: textColor ?? ColorsManager.primary),
+      title: Text(
+        title,
+        style: TextStyle(color: textColor ?? ColorsManager.primary),
+      ),
       subtitle: subtitle != null ? Text(subtitle) : null,
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,

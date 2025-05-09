@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_application_1/core/models/client.dart';
-import 'package:flutter_application_1/database/database_helper.dart';
+import 'package:flutter_application_1/database/client_database_helper.dart';
 
 class ClientProvider with ChangeNotifier {
   final ClientDatabaseHelper _dbHelper = ClientDatabaseHelper();
